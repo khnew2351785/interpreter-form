@@ -807,36 +807,50 @@
     if (state.eve) periods.push('夜間');
     var dateStr = val('svcdate') === val('svcdateend') ? val('svcdate') : val('svcdate') + ' 至 ' + val('svcdateend');
 
-    var body = '高雄市新住民會館 通譯人才資料庫服務申請表\n' +
-      '================================\n\n' +
-      '【申請單位資訊】\n' +
-      '單位名稱：' + val('unit') + '\n' +
-      '申請人：' + val('name') + '\n' +
-      '職稱：' + val('jobtitle') + '\n' +
-      '聯絡電話：' + val('tel') + (val('ext') ? '　分機：' + val('ext') : '') + '\n' +
-      '電子信箱：' + val('email') + '\n' +
-      '服務日期：' + dateStr + '\n' +
-      '服務時段：' + periods.join('、') + '\n\n' +
-      '【服務需求】\n' +
-      '服務類型：' + svcTypes.join('；') + '\n' +
-      (state.oral && val('addr') ? '服務地址：' + val('addr') + '\n' : '') +
-      '服務內容：' + val('content') + '\n' +
-      '服務報酬：' + rewardStr + '\n\n' +
-      '申請者已同意遵守相關規定。';
+    var submitBtn = document.querySelector('.btn-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送出中…';
 
-    var subject = '【通譯申請】' + val('unit') + '－' + val('name') + '　' + val('svcdate');
-    var mailtoLink = 'mailto:yoyolee@mustard.org.tw?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    var payload = {
+      單位名稱: val('unit'),
+      申請人: val('name'),
+      職稱: val('jobtitle'),
+      聯絡電話: val('tel') + (val('ext') ? '　分機：' + val('ext') : ''),
+      電子信箱: val('email'),
+      服務日期: dateStr,
+      服務時段: periods.join('、'),
+      服務類型: svcTypes.join('；'),
+      服務地址: state.oral ? val('addr') : '（文字翻譯，無需地址）',
+      服務內容: val('content'),
+      服務報酬: rewardStr,
+      _subject: '【通譯申請】' + val('unit') + '－' + val('name') + '　' + dateStr
+    };
 
-    // Show success
-    var caseNum = 'KH-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000)+10000);
-    document.getElementById('case-num').textContent = '案件編號 ' + caseNum;
-
-    document.getElementById('step3').classList.remove('visible');
-    document.getElementById('progress').style.display = 'none';
-    document.getElementById('success').classList.add('show');
-
-    window.location.href = mailtoLink;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetch('https://formspree.io/f/xaqvebab', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.ok || data.next) {
+        var caseNum = 'KH-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000)+10000);
+        document.getElementById('case-num').textContent = '案件編號 ' + caseNum;
+        document.getElementById('step3').classList.remove('visible');
+        document.getElementById('progress').style.display = 'none';
+        document.getElementById('success').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '送出申請';
+        alert('送出失敗，請稍後再試，或致電 07-2351785 聯繫李專員。');
+      }
+    })
+    .catch(function() {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送出申請';
+      alert('網路連線異常，請稍後再試，或致電 07-2351785 聯繫李專員。');
+    });
   }
 
   // Set min date to today
