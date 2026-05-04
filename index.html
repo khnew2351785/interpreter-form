@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高雄市新住民會館 · 通譯人才資料庫服務申請表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0F6E56;
+    --teal-mid: #1D9E75;
+    --teal-light: #E1F5EE;
+    --teal-pale: #f4fdf9;
+    --red: #c0392b;
+    --gray-100: #f8f7f4;
+    --gray-200: #eeecea;
+    --gray-400: #b0ada6;
+    --gray-600: #6b6860;
+    --gray-900: #1e1d1b;
+    --serif: 'Noto Serif TC', serif;
+    --sans: 'Noto Sans TC', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--gray-100);
+    color: var(--gray-900);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+  }
+  .header .org {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-family: var(--serif);
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .header .accent-line {
+    width: 40px;
+    height: 3px;
+    background: var(--teal-mid);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+  }
+  .header .desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.8;
+  }
+  .header .contact-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-top: 12px;
+  }
+
+  /* Progress */
+  .progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .progress::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: var(--gray-200);
+    z-index: 0;
+  }
+  .prog-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100px;
+    z-index: 1;
+  }
+  .prog-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-200);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-400);
+    transition: all 0.3s;
+  }
+  .prog-step.active .prog-dot {
+    border-color: var(--teal-mid);
+    background: var(--teal-mid);
+    color: white;
+  }
+  .prog-step.done .prog-dot {
+    border-color: var(--teal-mid);
+    background: var(--teal-light);
+    color: var(--teal);
+  }
+  .prog-label {
+    font-size: 11px;
+    color: var(--gray-400);
+    white-space: nowrap;
+  }
+  .prog-step.active .prog-label { color: var(--teal); font-weight: 500; }
+
+  /* Cards / sections */
+  .section {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 16px;
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 1.25rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    width: 22px;
+    height: 22px;
+    background: var(--teal-light);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  /* Fields */
+  .field { margin-bottom: 1.1rem; }
+  .field:last-child { margin-bottom: 0; }
+
+  .field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .field label .req {
+    color: var(--red);
+    margin-left: 3px;
+    font-size: 12px;
+  }
+  .field .hint {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  .field input[type=text],
+  .field input[type=email],
+  .field input[type=tel],
+  .field input[type=date],
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--sans);
+    color: var(--gray-900);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--teal-mid);
+    box-shadow: 0 0 0 3px rgba(29,158,117,0.1);
+  }
+  .field textarea { resize: vertical; min-height: 90px; line-height: 1.7; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 500px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Service type pills */
+  .service-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .period-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .pill-btn {
+    padding: 8px 18px;
+    font-size: 13px;
+    font-family: var(--sans);
+    border: 1.5px solid var(--gray-200);
+    border-radius: 100px;
+    cursor: pointer;
+    background: white;
+    color: var(--gray-600);
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .pill-btn:hover { border-color: var(--teal-mid); color: var(--teal); }
+  .pill-btn.active {
+    background: var(--teal-light);
+    border-color: var(--teal-mid);
+    color: var(--teal);
+  }
+
+  /* Language checkboxes */
+  .lang-box {
+    display: none;
+    padding: 14px 16px;
+    background: var(--teal-pale);
+    border: 1px solid #c2e8d9;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .lang-box.show { display: block; }
+  .lang-box .lang-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--teal);
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+  .lang-grid { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .lang-grid label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--gray-900);
+    cursor: pointer;
+    font-weight: 400;
+  }
+  .lang-grid input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--teal-mid);
+    cursor: pointer;
+  }
+
+  /* Radio reward */
+  .radio-group { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 400;
+  }
+  .radio-group input[type=radio] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--teal-mid);
+    cursor: pointer;
+  }
+  .reward-detail { display: none; margin-top: 10px; }
+  .reward-detail.show { display: block; }
+
+  /* Agree */
+  .agree-box {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .agree-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .agree-check input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--teal-mid);
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Navigation buttons */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  .btn {
+    padding: 11px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: var(--sans);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .btn-outline {
+    background: white;
+    border: 1px solid var(--gray-200);
+    color: var(--gray-600);
+  }
+  .btn-outline:hover { border-color: var(--gray-400); }
+  .btn-primary {
+    background: var(--teal-mid);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--teal); }
+  .btn-submit {
+    background: var(--teal);
+    color: white;
+    padding: 12px 36px;
+    font-size: 15px;
+  }
+  .btn-submit:hover { background: #0a5240; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Error */
+  .err { font-size: 12px; color: var(--red); margin-top: 4px; display: none; }
+  .field.has-error input,
+  .field.has-error textarea,
+  .field.has-error select { border-color: var(--red); }
+  .field.has-error .err { display: block; }
+
+  /* Success screen */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    animation: fadeIn 0.4s ease;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .success-screen h2 {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--gray-900);
+    margin-bottom: 10px;
+  }
+  .success-screen p { font-size: 14px; color: var(--gray-600); line-height: 1.8; }
+  .success-screen .case-num {
+    display: inline-block;
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin: 12px 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* Review section */
+  .review-block {
+    background: var(--gray-100);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .review-block .rb-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  .review-row {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+  .review-row .rk { color: var(--gray-400); width: 90px; flex-shrink: 0; }
+  .review-row .rv { color: var(--gray-900); }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 2rem;
+    line-height: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <div class="org">高雄市新住民會館</div>
+    <h1>通譯人才資料庫<br>服務申請表</h1>
+    <div class="accent-line"></div>
+    <div class="desc">請依序填寫各欄位，送出後將由承辦人員審核並與您聯繫。</div>
+    <div class="contact-bar">📞 07-2351785（李專員）</div>
+  </div>
+
+  <div class="progress" id="progress">
+    <div class="prog-step active" id="ps1">
+      <div class="prog-dot">1</div>
+      <div class="prog-label">申請單位</div>
+    </div>
+    <div class="prog-step" id="ps2">
+      <div class="prog-dot">2</div>
+      <div class="prog-label">服務需求</div>
+    </div>
+    <div class="prog-step" id="ps3">
+      <div class="prog-dot">3</div>
+      <div class="prog-label">確認送出</div>
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section visible" id="step1">
+    <div class="section-title">
+      <span class="icon">🏢</span> 申請單位資訊
+    </div>
+
+    <div class="field" id="f-unit">
+      <label>單位名稱 <span class="req">*</span></label>
+      <input type="text" id="unit" placeholder="例：高雄市政府社會局">
+      <div class="err" id="e-unit">請填寫單位名稱</div>
+    </div>
+
+    <div class="two-col">
+      <div class="field" id="f-name">
+        <label>申請人姓名 <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="姓名">
+        <div class="err" id="e-name">請填寫申請人姓名</div>
+      </div>
+      <div class="field" id="f-title">
+        <label>職稱 <span class="req">*</span></label>
+        <input type="text" id="jobtitle" placeholder="例：社工師">
+        <div class="err" id="e-title">請填寫職稱</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="field" id="f-tel">
+        <label>聯絡電話 <span class="req">*</span></label>
+        <input type="tel" id="tel" placeholder="07-XXXXXXX 或 09XX-XXXXXX">
+        <div class="err" id="e-tel">請填寫有效電話號碼</div>
+      </div>
+      <div class="field">
+        <label>分機號碼</label>
+        <input type="text" id="ext" placeholder="（選填）">
+      </div>
+    </div>
+
+    <div class="field" id="f-email">
+      <label>電子信箱 <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="example@gov.tw">
+      <div class="hint">申請確認通知將寄送至此信箱</div>
+      <div class="err" id="e-email">請填寫有效的電子信箱</div>
+    </div>
+
+    <div class="two-col">
+      <div class="field" id="f-date">
+        <label>服務開始日期 <span class="req">*</span></label>
+        <input type="date" id="svcdate">
+        <div class="err" id="e-date">請選擇服務開始日期</div>
+      </div>
+      <div class="field" id="f-dateend">
+        <label>服務結束日期 <span class="req">*</span></label>
+        <input type="date" id="svcdateend">
+        <div class="err" id="e-dateend">請選擇結束日期，且須在開始日期之後</div>
+      </div>
+    </div>
+
+    <div class="field" id="f-period">
+      <label>服務時段 <span class="req">*</span></label>
+      <div class="period-pills">
+        <button class="pill-btn" id="pill-am" type="button" onclick="togglePeriod('am')">🌤 上午</button>
+        <button class="pill-btn" id="pill-pm" type="button" onclick="togglePeriod('pm')">🌇 下午</button>
+        <button class="pill-btn" id="pill-eve" type="button" onclick="togglePeriod('eve')">🌙 夜間</button>
+      </div>
+      <div class="hint">可複選，上午 08:00–12:00 ／下午 13:00–18:00 ／夜間 18:00–22:00</div>
+      <div class="err" id="e-period">請至少選擇一個服務時段</div>
+    </div>
+
+    <div class="nav-row">
+      <span></span>
+      <button class="btn btn-primary" onclick="goStep2()">下一步 →</button>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section" id="step2">
+    <div class="section-title">
+      <span class="icon">🌐</span> 服務類別與需求
+    </div>
+
+    <div class="field">
+      <label>服務類型 <span class="req">*</span>（可複選）</label>
+      <div class="service-pills">
+        <button class="pill-btn" id="pill-text" type="button" onclick="toggleService('text')">📄 文字翻譯服務</button>
+        <button class="pill-btn" id="pill-oral" type="button" onclick="toggleService('oral')">🗣 陪同通譯服務</button>
+      </div>
+      <div class="err" id="e-service" style="display:none">請至少選擇一種服務類型</div>
+    </div>
+
+    <div class="lang-box" id="langs-text">
+      <div class="lang-title">文字翻譯語言（可複選）</div>
+      <div class="lang-grid">
+        <label><input type="checkbox" name="textlang" value="越文"> 越文</label>
+        <label><input type="checkbox" name="textlang" value="印尼文"> 印尼文</label>
+        <label><input type="checkbox" name="textlang" value="泰文"> 泰文</label>
+        <label><input type="checkbox" name="textlang" value="柬埔寨文"> 柬埔寨文</label>
+        <label><input type="checkbox" name="textlang" value="英文"> 英文</label>
+        <label><input type="checkbox" name="textlang" value="其他"> 其他</label>
+      </div>
+    </div>
+
+    <div class="lang-box" id="langs-oral">
+      <div class="lang-title">陪同通譯語言（可複選）</div>
+      <div class="lang-grid">
+        <label><input type="checkbox" name="orallang" value="越語"> 越語</label>
+        <label><input type="checkbox" name="orallang" value="印尼語"> 印尼語</label>
+        <label><input type="checkbox" name="orallang" value="緬甸語"> 緬甸語</label>
+        <label><input type="checkbox" name="orallang" value="柬埔寨語"> 柬埔寨語</label>
+        <label><input type="checkbox" name="orallang" value="英語"> 英語</label>
+        <label><input type="checkbox" name="orallang" value="其他"> 其他</label>
+      </div>
+    </div>
+
+    <div class="field" id="f-addr" style="display:none">
+      <label>服務地址 <span class="req">*</span></label>
+      <input type="text" id="addr" placeholder="請填寫行政區及完整地址">
+      <div class="hint">陪同通譯服務必填，請填寫詳細地址</div>
+      <div class="err" id="e-addr">選擇陪同通譯服務時，請填寫服務地址</div>
+    </div>
+
+    <div class="field" id="f-content">
+      <label>服務內容簡述 <span class="req">*</span></label>
+      <textarea id="content" placeholder="請說明服務目的、服務對象及具體需求內容。&#10;例：協助越南籍新住民辦理健保申請，需翻譯相關文件及說明流程。"></textarea>
+      <div class="err" id="e-content">請簡述服務內容</div>
+    </div>
+
+    <div class="field">
+      <label>服務報酬</label>
+      <div class="radio-group">
+        <label><input type="radio" name="reward" value="無" checked onclick="toggleReward(false)"> 無</label>
+        <label><input type="radio" name="reward" value="有" onclick="toggleReward(true)"> 有</label>
+        <label><input type="radio" name="reward" value="其他" onclick="toggleReward('other')"> 其他</label>
+      </div>
+      <div class="reward-detail" id="reward-detail">
+        <input type="text" id="reward-note" placeholder="請說明報酬內容">
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-outline" onclick="goStep(1)">← 上一步</button>
+      <button class="btn btn-primary" onclick="goStep3()">下一步 →</button>
+    </div>
+  </div>
+
+  <!-- Step 3 Review -->
+  <div class="section" id="step3">
+    <div class="section-title">
+      <span class="icon">✅</span> 確認申請資料
+    </div>
+
+    <div class="review-block">
+      <div class="rb-title">申請單位資訊</div>
+      <div id="review1"></div>
+    </div>
+
+    <div class="review-block">
+      <div class="rb-title">服務需求</div>
+      <div id="review2"></div>
+    </div>
+
+    <div class="agree-box">
+      本申請單位申請使用通譯人才資料庫服務，願遵守「高雄市政府通譯人才資料庫建置、維護及申請使用作業」相關規定，如有任何不實填報，願負一切法律責任。
+    </div>
+
+    <label class="agree-check" id="f-agree">
+      <input type="checkbox" id="agree">
+      <span>我已確認以上資訊無誤，並同意遵守相關規定 <span style="color:var(--red)">*</span></span>
+    </label>
+    <div class="err" id="e-agree" style="margin-top:6px">請勾選同意後再送出</div>
+
+    <div class="nav-row">
+      <button class="btn btn-outline" onclick="goStep(2)">← 上一步</button>
+      <button class="btn btn-submit" onclick="submitForm()">送出申請</button>
+    </div>
+  </div>
+
+  <!-- Success -->
+  <div class="success-screen" id="success">
+    <div class="success-icon">✓</div>
+    <h2>申請已送出！</h2>
+    <div class="case-num" id="case-num"></div>
+    <p>感謝您的申請，我們已收到您的資料。<br>李專員將於 <strong>2 個工作天內</strong>與您聯繫確認。<br><br>如需即時確認，請致電<br><strong style="color:var(--teal)">07-2351785</strong></p>
+  </div>
+
+  <footer>
+    高雄市新住民會館 · 通譯人才資料庫服務申請表<br>
+    申請資料請E-mail至 yoyolee@mustard.org.tw
+  </footer>
+
+</div>
+
+<script>
+  var state = { text: false, oral: false, am: false, pm: false, eve: false };
+
+  function togglePeriod(p) {
+    state[p] = !state[p];
+    document.getElementById('pill-' + p).classList.toggle('active', state[p]);
+  }
+
+  function toggleService(type) {
+    state[type] = !state[type];
+    document.getElementById('pill-' + type).classList.toggle('active', state[type]);
+    document.getElementById('langs-' + type).classList.toggle('show', state[type]);
+    var addrField = document.getElementById('f-addr');
+    addrField.style.display = state.oral ? 'block' : 'none';
+  }
+
+  function toggleReward(show) {
+    var d = document.getElementById('reward-detail');
+    d.classList.toggle('show', show === true || show === 'other');
+  }
+
+  function setErr(id, show) {
+    var f = document.getElementById('f-' + id);
+    if (f) f.classList.toggle('has-error', show);
+    var e = document.getElementById('e-' + id);
+    if (e) e.style.display = show ? 'block' : 'none';
+  }
+
+  function val(id) { return (document.getElementById(id) || {}).value || ''; }
+
+  function goStep2() {
+    var ok = true;
+    if (!val('unit').trim()) { setErr('unit', true); ok = false; } else setErr('unit', false);
+    if (!val('name').trim()) { setErr('name', true); ok = false; } else setErr('name', false);
+    if (!val('jobtitle').trim()) { setErr('title', true); ok = false; } else setErr('title', false);
+    var tel = val('tel').replace(/\D/g,'');
+    if (tel.length < 8) { setErr('tel', true); ok = false; } else setErr('tel', false);
+    var em = val('email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { setErr('email', true); ok = false; } else setErr('email', false);
+    var d1 = val('svcdate'), d2 = val('svcdateend');
+    if (!d1) { setErr('date', true); ok = false; } else setErr('date', false);
+    if (!d2 || d2 < d1) { setErr('dateend', true); ok = false; } else setErr('dateend', false);
+    if (!state.am && !state.pm && !state.eve) {
+      document.getElementById('e-period').style.display = 'block'; ok = false;
+    } else {
+      document.getElementById('e-period').style.display = 'none';
+    }
+    if (ok) goStep(2);
+  }
+
+  function goStep3() {
+    var ok = true;
+    if (!state.text && !state.oral) {
+      document.getElementById('e-service').style.display = 'block'; ok = false;
+    } else {
+      document.getElementById('e-service').style.display = 'none';
+    }
+    if (state.oral && !val('addr').trim()) { setErr('addr', true); ok = false; } else setErr('addr', false);
+    if (!val('content').trim()) { setErr('content', true); ok = false; } else setErr('content', false);
+    if (ok) {
+      buildReview();
+      goStep(3);
+    }
+  }
+
+  function buildReview() {
+    var r1 = document.getElementById('review1');
+    var r2 = document.getElementById('review2');
+    var rewardVal = document.querySelector('input[name=reward]:checked');
+    var rewardNote = val('reward-note');
+    var rewardStr = rewardVal ? rewardVal.value : '無';
+    if ((rewardVal && rewardVal.value !== '無') && rewardNote) rewardStr += '：' + rewardNote;
+
+    var textLangs = Array.from(document.querySelectorAll('input[name=textlang]:checked')).map(function(c){return c.value;}).join('、');
+    var oralLangs = Array.from(document.querySelectorAll('input[name=orallang]:checked')).map(function(c){return c.value;}).join('、');
+    var svcTypes = [];
+    if (state.text) svcTypes.push('文字翻譯服務' + (textLangs ? '（' + textLangs + '）' : ''));
+    if (state.oral) svcTypes.push('陪同通譯服務' + (oralLangs ? '（' + oralLangs + '）' : ''));
+
+    var periods = [];
+    if (state.am) periods.push('上午');
+    if (state.pm) periods.push('下午');
+    if (state.eve) periods.push('夜間');
+    var dateStr = val('svcdate') === val('svcdateend') ? val('svcdate') : val('svcdate') + ' 至 ' + val('svcdateend');
+
+    r1.innerHTML = row('單位名稱', val('unit')) + row('申請人', val('name') + '　' + val('jobtitle')) + row('聯絡電話', val('tel') + (val('ext') ? '　分機 ' + val('ext') : '')) + row('電子信箱', val('email')) + row('服務日期', dateStr) + row('服務時段', periods.join('、'));
+    r2.innerHTML = row('服務類型', svcTypes.join('；')) + (state.oral ? row('服務地址', val('addr')) : '') + row('服務內容', val('content')) + row('服務報酬', rewardStr);
+  }
+
+  function row(k, v) {
+    return '<div class="review-row"><span class="rk">' + k + '</span><span class="rv">' + (v||'—') + '</span></div>';
+  }
+
+  function goStep(n) {
+    document.getElementById('step1').classList.remove('visible');
+    document.getElementById('step2').classList.remove('visible');
+    document.getElementById('step3').classList.remove('visible');
+    document.getElementById('step' + n).classList.add('visible');
+    ['ps1','ps2','ps3'].forEach(function(id, i) {
+      var el = document.getElementById(id);
+      el.classList.remove('active','done');
+      if (i + 1 < n) el.classList.add('done');
+      else if (i + 1 === n) el.classList.add('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitForm() {
+    if (!document.getElementById('agree').checked) {
+      document.getElementById('e-agree').style.display = 'block';
+      return;
+    }
+    document.getElementById('e-agree').style.display = 'none';
+
+    // Build email body
+    var textLangs = Array.from(document.querySelectorAll('input[name=textlang]:checked')).map(function(c){return c.value;}).join('、');
+    var oralLangs = Array.from(document.querySelectorAll('input[name=orallang]:checked')).map(function(c){return c.value;}).join('、');
+    var rewardVal = document.querySelector('input[name=reward]:checked');
+    var rewardStr = rewardVal ? rewardVal.value : '無';
+    if (rewardVal && rewardVal.value !== '無' && val('reward-note')) rewardStr += '：' + val('reward-note');
+    var svcTypes = [];
+    if (state.text) svcTypes.push('文字翻譯服務' + (textLangs ? '（' + textLangs + '）' : ''));
+    if (state.oral) svcTypes.push('陪同通譯服務' + (oralLangs ? '（' + oralLangs + '）' : ''));
+
+    var periods = [];
+    if (state.am) periods.push('上午');
+    if (state.pm) periods.push('下午');
+    if (state.eve) periods.push('夜間');
+    var dateStr = val('svcdate') === val('svcdateend') ? val('svcdate') : val('svcdate') + ' 至 ' + val('svcdateend');
+
+    var body = '高雄市新住民會館 通譯人才資料庫服務申請表\n' +
+      '================================\n\n' +
+      '【申請單位資訊】\n' +
+      '單位名稱：' + val('unit') + '\n' +
+      '申請人：' + val('name') + '\n' +
+      '職稱：' + val('jobtitle') + '\n' +
+      '聯絡電話：' + val('tel') + (val('ext') ? '　分機：' + val('ext') : '') + '\n' +
+      '電子信箱：' + val('email') + '\n' +
+      '服務日期：' + dateStr + '\n' +
+      '服務時段：' + periods.join('、') + '\n\n' +
+      '【服務需求】\n' +
+      '服務類型：' + svcTypes.join('；') + '\n' +
+      (state.oral && val('addr') ? '服務地址：' + val('addr') + '\n' : '') +
+      '服務內容：' + val('content') + '\n' +
+      '服務報酬：' + rewardStr + '\n\n' +
+      '申請者已同意遵守相關規定。';
+
+    var subject = '【通譯申請】' + val('unit') + '－' + val('name') + '　' + val('svcdate');
+    var mailtoLink = 'mailto:yoyolee@mustard.org.tw?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    // Show success
+    var caseNum = 'KH-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000)+10000);
+    document.getElementById('case-num').textContent = '案件編號 ' + caseNum;
+
+    document.getElementById('step3').classList.remove('visible');
+    document.getElementById('progress').style.display = 'none';
+    document.getElementById('success').classList.add('show');
+
+    window.location.href = mailtoLink;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Set min date to today
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('svcdate').min = today;
+  document.getElementById('svcdateend').min = today;
+  document.getElementById('svcdate').addEventListener('change', function() {
+    var d = this.value;
+    var endEl = document.getElementById('svcdateend');
+    endEl.min = d;
+    if (endEl.value && endEl.value < d) endEl.value = d;
+  });
+</script>
+</body>
+</html>
